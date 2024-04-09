@@ -4,7 +4,17 @@ const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 
+dotenv.config();
 const app = express();
+
+mongoose.connect(process.env.MONGODB_URL)
+  .then(() => {
+    console.log("Connected to MongoDB");
+  })
+  .catch((error) => {
+    console.error("Error connecting to MongoDB:", error);
+  });
+
 app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
